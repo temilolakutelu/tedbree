@@ -9,7 +9,7 @@
             class="search p-1  flex justify-between"
             @submit.prevent="getJobs"
           >
-            <div class="search-text flex  w-3/4 ">
+            <div class="search-text flex p-2  w-3/4 ">
               <i class="fa fa-search"></i>
               <input
                 type="text"
@@ -33,55 +33,57 @@
           </div>
         </div>
 
-        <table class=" table  border-separate w-full  overflow-auto lg:overflow-visible">
-          <thead>
-            <tr>
-              <th></th>
-              <th class="text-left">Job Title</th>
-              <th>Date Modified</th>
-              <th>Category</th>
-              <th></th>
-              <th><span class="flex justify-end">Filter <img
-                    class="my-auto ml-2"
-                    src="../assets/img/filter.png"
-                    alt=""
-                  ></span></th>
-            </tr>
-          </thead>
-          <tbody>
+        <div class=" overflow-auto lg:overflow-visible">
+          <table class=" table  border-separate w-full">
+            <thead>
+              <tr>
+                <th></th>
+                <th class="text-left">Job Title</th>
+                <th>Date Modified</th>
+                <th>Category</th>
+                <th></th>
+                <th><span class="flex justify-end">Filter <img
+                      class="my-auto ml-2"
+                      src="../assets/img/filter.png"
+                      alt=""
+                    ></span></th>
+              </tr>
+            </thead>
+            <tbody>
 
-            <tr
-              v-for="(row,ix)  in jobs"
-              :key="ix"
-            >
-              <td><i class="fas fa-circle"></i></td>
-              <td class="text-left">{{row.title}}</td>
-              <td class="text-center">{{row.updated_at}}</td>
-              <td class="text-center">{{row.category}}</td>
-              <td class="text-center"><span
-                  @click="editJob(row)"
-                  class="edit"
-                >Edit</span></td>
-              <td class="text-center"><span
-                  @click="handleDelete(row.id)"
-                  class="delete"
-                >Delete</span></td>
-            </tr>
+              <tr
+                v-for="(row,ix)  in jobs"
+                :key="ix"
+              >
+                <td><i class="fas fa-circle"></i></td>
+                <td class="text-left">{{row.title}}</td>
+                <td class="text-center">{{formatDate(row.updated_at)}}</td>
+                <td class="text-center">{{row.category}}</td>
+                <td class="text-center"><span
+                    @click="editJob(row)"
+                    class="edit"
+                  >Edit</span></td>
+                <td class="text-center"><span
+                    @click="handleDelete(row.id)"
+                    class="delete"
+                  >Delete</span></td>
+              </tr>
 
-          </tbody>
-        </table>
-        <section class="pagination my-8">
-          <div class="flex">
-            <div
-              class="box"
-              v-for="i in pagination.pages"
-              :key="i"
-              @click="getJobs(i)"
-              :class="{ 'active': i === pagination.current}"
-            > {{i}}</div>
+            </tbody>
+          </table>
+          <section class="pagination my-8">
+            <div class="flex">
+              <div
+                class="box"
+                v-for="i in pagination.pages"
+                :key="i"
+                @click="getJobs(i)"
+                :class="{ 'active': i === pagination.current}"
+              > {{i}}</div>
 
-          </div>
-        </section>
+            </div>
+          </section>
+        </div>
       </div>
     </section>
     <!-- createjob modal -->
@@ -332,8 +334,28 @@ export default {
     },
     closeModal () {
       document.querySelector("#editjob").style.display = "none"
-    }
+    },
+    formatDate (date) {
+      if (date !== null) {
+        let d = new Date(date)
+        var dd = d.getDate();
+        var mm = d.getMonth() + 1;
 
+        var yyyy = d.getFullYear();
+        if (dd < 10) {
+          dd = '0' + dd;
+        }
+        if (mm < 10) {
+          mm = '0' + mm;
+        }
+        return dd + '/' + mm + '/' + yyyy;
+
+
+      }
+      else {
+        return null
+      }
+    },
   }
 }
 </script> 
