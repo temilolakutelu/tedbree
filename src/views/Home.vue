@@ -4,7 +4,10 @@
     <section class="content">
       <div class="container-box">
         <!-- search component -->
-        <form class="search flex justify-between p-1 ml-10">
+        <form
+          class="search flex justify-between p-1 ml-10"
+          @submit.prevent="getJobs"
+        >
           <div class="search-text flex w-3/4">
             <i class="fa fa-search"></i>
             <input
@@ -14,10 +17,7 @@
               placeholder="Enter search text here e.g Frontend"
             >
           </div>
-          <button
-            type="submit"
-            @click.prevent="getJobs()"
-          >Search</button>
+          <button type="submit">Search</button>
           <!-- <div class="location-text w-2/4  p-1 hide-sm">
             <i class="fa  fa-map-marker-alt"></i>
             <input
@@ -131,7 +131,6 @@ export default {
     this.getJobs(1)
   },
   watch: {
-
   },
   methods: {
     openApply () {

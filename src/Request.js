@@ -11,7 +11,7 @@ export default {
         if (request.showLoader || request.showLoader == undefined) {
             if (!Vue.prototype.$swal.isVisible()) {
                 var loading_html =
-                    '<div style="height:150px;width:150px;margin: 0 auto;"><img style="width: 100%;" src="https://cutewallpaper.org/21/loading-animated-gif-transparent-background/Marine-Mechanic-Outside-Machinist.gif" /></div>';
+                    '<div style="height:100px;width:100px;margin: 0 auto;"><img style="width: 100%;" src="https://cutewallpaper.org/21/loading-animated-gif-transparent-background/Marine-Mechanic-Outside-Machinist.gif" /></div>';
 
                 Vue.prototype.$swal.fire({
                     title: "",
@@ -105,7 +105,8 @@ export default {
             login: 'login/',
             register: 'register/',
             logout: 'logout/',
-            apply: 'apply/'
+            apply: 'apply/',
+            createjob: 'my/jobs'
 
         };
         var request_url;
@@ -161,125 +162,121 @@ export default {
         });
     },
 
-    // editItem: request => {
+    editItem: request => {
 
-    //     if (request.showLoader || request.showLoader == undefined) {
-    //         var loading_html =
-    //             '<div style="height:150px;width:150px;margin: 0 auto;"><img style="width: 100%;" src="https://cutewallpaper.org/21/loading-animated-gif-transparent-background/Marine-Mechanic-Outside-Machinist.gif" /></div>';
+        if (request.showLoader || request.showLoader == undefined) {
+            var loading_html =
+                '<div style="height:100px;width:100px;margin: 0 auto;"><img style="width: 100%;" src="https://cutewallpaper.org/21/loading-animated-gif-transparent-background/Marine-Mechanic-Outside-Machinist.gif" /></div>';
 
-    //         Vue.prototype.$swal.fire({
-    //             title: "",
-    //             html: loading_html,
-    //             showConfirmButton: false,
-    //             showCancelButton: false
-    //         });
-    //     }
-    //     console.log(
-    //         "%cSending put request: ",
-    //         "color:#fff;font-size:14px;background:#00ff00;"
-    //     );
-    //     // console.log(request)
-    //     var request_urls = {
-    //         profile: 'merchantusers/',
-    //         editProduct: 'product/'
-    //     };
-    //     var request_url = URL + request_urls[request.what];
-    //     // console.log(request_url)
-    //     request_url += request.id == undefined ? "" : "" + request.id + "/";
+            Vue.prototype.$swal.fire({
+                title: "",
+                html: loading_html,
+                showConfirmButton: false,
+                showCancelButton: false
+            });
+        }
+        console.log(
+            "%cSending put request: ",
+            "color:#fff;font-size:14px;background:#00ff00;"
+        );
+        // console.log(request)
+        var request_urls = {
+            editjob: 'my/jobs/',
+        };
+        var request_url = URL + request_urls[request.what];
+        // console.log(request_url)
+        request_url += request.id == undefined ? "" : "" + request.id + "/";
 
-    //     if (request.formData || request.useToken) {
-    //         request.headers = {};
-    //         if (request.formData) {
-    //             request.headers = {
-    //                 'Content-Type': 'multipart/form-data'
-    //             }
-    //         }
-    //         if (request.useToken || request.useToken == undefined) {
-    //             var token = store.getters.token;
-    //             request.headers.Authorization = "Bearer " + token
-    //         }
-    //     }
-    //     var config = {
-    //         headers: request.headers
-    //     };
+        if (request.formData || request.useToken) {
+            request.headers = {};
+            if (request.formData) {
+                request.headers = {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }
+            if (request.useToken || request.useToken == undefined) {
+                var token = store.getters.token;
+                request.headers.Authorization = "Bearer " + token
+            }
+        }
+        var config = {
+            headers: request.headers
+        };
 
-    //     return new Promise((resolve, reject) => {
-    //         axios
-    //             .put(request_url, request.data, config)
-    //             .then(response => {
-    //                 if (response.data.status == "true" || response.data.status) {
-    //                     response = {
-    //                         data: response.data,
-    //                         type: request.what,
-    //                         status: "true"
-    //                     };
+        return new Promise((resolve, reject) => {
+            axios
+                .patch(request_url, request.data, config)
+                .then(response => {
+                    if (response.data.status == "true" || response.data.status) {
+                        response = {
+                            data: response.data,
+                            type: request.what,
+                            status: "true"
+                        };
 
-    //                     resolve(response)
-    //                 } else {
-    //                     reject('error')
-    //                 }
-    //             })
-    //             .catch(err => {
-    //                 resolve(err)
-    //             });
+                        resolve(response)
+                    } else {
+                        reject('error')
+                    }
+                })
+                .catch(err => {
+                    resolve(err)
+                });
 
-    //     });
-    // },
-    // deleteItem: (request) => {
+        });
+    },
+    deleteItem: (request) => {
 
-    //     if (request.showLoader || request.showLoader == undefined) {
-    //         if (!Vue.prototype.$swal.isVisible()) {
-    //             var loading_html = '<div style="height:150px;width:150px;margin: 0 auto;"><img style="width: 100%;" src="https://i.ya-webdesign.com/images/minimalist-transparent-loading-gif-6.gif" /></div>'
+        if (request.showLoader || request.showLoader == undefined) {
+            if (!Vue.prototype.$swal.isVisible()) {
+                var loading_html = '<div style="height:100px;width:100px;margin: 0 auto;"><img style="width: 100%;" src="https://cutewallpaper.org/21/loading-animated-gif-transparent-background/Marine-Mechanic-Outside-Machinist.gif" /></div>'
 
-    //             Vue.prototype.$swal.fire({
-    //                 title: "",
-    //                 html: loading_html,
-    //                 showConfirmButton: false,
-    //                 showCancelButton: false
-    //             })
-    //         }
-    //     }
+                Vue.prototype.$swal.fire({
+                    title: "",
+                    html: loading_html,
+                    showConfirmButton: false,
+                    showCancelButton: false
+                })
+            }
+        }
 
-    //     console.log('%cDeleting: ', 'color:#fff;font-size:14px;background:#00ff00;')
-    //     var request_urls = {
-    //         deleteaddress: 'addresses',
-    //     }
+        console.log('%cDeleting: ', 'color:#fff;font-size:14px;background:#00ff00;')
+        var request_urls = {
+            deletejob: 'my/jobs',
+        }
 
-    //     var request_url = URL + request_urls[request.what]
+        var request_url = URL + request_urls[request.what]
 
-    //     request_url += (request.id == undefined) ? "" : "/" + request.id
+        request_url += (request.id == undefined) ? "" : "/" + request.id
 
-    //     var config = {
-    //         headers: {
+        var config = {
+            data: request.data
+        }
 
-    //         },
-    //         data: request.data
-    //     }
-
-    //     return new Promise((resolve, reject) => {
-    //         axios.delete(request_url, config)
-    //             .then((response) => {
+        return new Promise((resolve, reject) => {
+            axios.delete(request_url, config)
+                .then((response) => {
 
 
-    //                 if (response.data.status == 'true' || response.data.status) {
+                    if (response.data.status == 'true' || response.data.status) {
 
-    //                     response = {
-    //                         data: response.data,
-    //                         type: request.what,
-    //                         status: 'true'
-    //                     }
+                        response = {
+                            data: response.data,
+                            type: request.what,
+                            status: 'true'
+                        }
 
-    //                     resolve(response)
-    //                 } else {
+                        resolve(response)
+                    } else {
 
-    //                     reject(response)
-    //                 }
-    //             })
-    //             .catch((err) => {
-    //                 reject(err)
-    //             })
+                        reject(response)
+                    }
+                })
+                .catch((err) => {
+                    reject(err)
+                })
 
-    //     })
-    // }
+        })
+    }
 
 };

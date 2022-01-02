@@ -28,6 +28,7 @@
             class="nav-links "
           > Logout </li>
           <li
+            v-if="$store.getters.isLoggedIn"
             class=" nav-links create-button"
             @click="showModal"
           >

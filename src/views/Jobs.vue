@@ -5,19 +5,27 @@
       <div class="container-box">
         <div class="flex justify-between flex-wrap">
           <!-- search component -->
-          <div class="search p-2  flex">
-            <div class="search-text   ">
+          <form
+            class="search p-1  flex justify-between"
+            @submit.prevent="getJobs"
+          >
+            <div class="search-text flex  w-3/4 ">
               <i class="fa fa-search"></i>
               <input
                 type="text"
-                placeholder=""
+                class="w-full"
+                v-model="searchtext"
+                placeholder="Enter search text here e.g Frontend"
               >
 
             </div>
-            <button>Search</button>
-          </div>
+            <button type="submit">Search</button>
+          </form>
           <div>
-            <button class="red-btn flex"><img
+            <button
+              class="red-btn flex"
+              @click="showModal"
+            ><img
                 src="../assets/img/plus.png"
                 class="my-auto mr-2"
                 alt=""
@@ -31,7 +39,7 @@
               <th></th>
               <th class="text-left">Job Title</th>
               <th>Date Modified</th>
-              <th>Candidates</th>
+              <th>Category</th>
               <th></th>
               <th><span class="flex justify-end">Filter <img
                     class="my-auto ml-2"
@@ -41,38 +49,25 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
+
+            <tr
+              v-for="(row,ix)  in jobs"
+              :key="ix"
+            >
               <td><i class="fas fa-circle"></i></td>
-              <td class="text-left">customer success intern</td>
-              <td class="text-center">12/2/21</td>
-              <td class="text-center">50</td>
-              <td class="  text-center"><span class="edit">Edit</span></td>
-              <td class="  text-center"><span class="delete">Delete</span></td>
+              <td class="text-left">{{row.title}}</td>
+              <td class="text-center">{{row.updated_at}}</td>
+              <td class="text-center">{{row.category}}</td>
+              <td class="text-center"><span
+                  @click="editJob(row)"
+                  class="edit"
+                >Edit</span></td>
+              <td class="text-center"><span
+                  @click="handleDelete(row.id)"
+                  class="delete"
+                >Delete</span></td>
             </tr>
-            <tr>
-              <td><i class="fas fa-circle"></i></td>
-              <td class="text-left">customer success intern</td>
-              <td class="text-center">12/2/21</td>
-              <td class="text-center">50</td>
-              <td class="  text-center"><span class="edit">Edit</span></td>
-              <td class="  text-center"><span class="delete">Delete</span></td>
-            </tr>
-            <tr>
-              <td><i class="fas fa-circle"></i></td>
-              <td class="text-left">customer success intern</td>
-              <td class="text-center">12/2/21</td>
-              <td class="text-center">50</td>
-              <td class="  text-center"><span class="edit">Edit</span></td>
-              <td class="  text-center"><span class="delete">Delete</span></td>
-            </tr>
-            <tr>
-              <td><i class="fas fa-circle"></i></td>
-              <td class="text-left">customer success intern</td>
-              <td class="text-center">12/2/21</td>
-              <td class="text-center">50</td>
-              <td class="  text-center"><span class="edit">Edit</span></td>
-              <td class="  text-center"><span class="delete">Delete</span></td>
-            </tr>
+
           </tbody>
         </table>
         <section class="pagination my-8">
@@ -89,6 +84,135 @@
         </section>
       </div>
     </section>
+    <!-- createjob modal -->
+    <CreateJob ref="createjob"> </CreateJob>
+
+    <!-- editjob modal -->
+    <div
+      id="editjob"
+      class="modal"
+      tabindex="-1"
+    >
+      <div class="modal-content">
+        <img
+          @click="closeModal"
+          class="close-btn m-5"
+          src="../assets/img/close.png"
+          alt=""
+        >
+        <div class="form px-16 ">
+
+          <div class="pt-14 pb-10">
+            <h3 class="title">Edit Job</h3>
+            <p class="subtitle">Kindly provide the required information to get matched with suitable candidates</p>
+          </div>
+          <form @submit.prevent="handleEdit">
+            <div class="form-group">
+              <label for="title">Job Title</label>
+              <input
+                type="text"
+                v-model="job.title"
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="location">Location</label>
+              <input
+                type="text"
+                v-model="job.location"
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="type">What type of employement is it?</label>
+              <select
+                name=""
+                id=""
+                v-model="job.type"
+              >
+                <option
+                  selected
+                  value=""
+                >Select option</option>
+                <option>Full-time</option>
+                <option>Temporary</option>
+                <option>Contract</option>
+                <option>Permanent</option>
+                <option>Internship</option>
+                <option>Volunteer</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="salary">Salary range</label>
+              <input
+                type="text"
+                v-model="job.salary"
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="sector">What Sector is this job categorized under?</label>
+              <select
+                name=""
+                id=""
+                v-model="job.category"
+              >
+                <option
+                  selected
+                  value=""
+                >Select option</option>
+                <option>Tech</option>
+                <option>Hospitality</option>
+                <option>Customer Service</option>
+                <option>Marketing</option>
+
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="sector"> Work Conditions</label>
+              <select
+                name=""
+                id=""
+                v-model="job.work_condition"
+              >
+                <option
+                  selected
+                  value=""
+                >Select option</option>
+                <option>Remote</option>
+                <option>Part Remote</option>
+                <option>On-Premise</option>
+
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="benefits">Benefits</label>
+              <input
+                type="text"
+                v-model="job.benefits"
+              >
+            </div>
+            <div class="form-group">
+              <label for="salary">Description</label>
+              <textarea
+                v-model="job.description"
+                cols="30"
+                rows="10"
+              ></textarea>
+            </div>
+
+            <div class="form-group">
+              <button
+                type="submit"
+                class="btn"
+              >Submit Application</button>
+            </div>
+          </form>
+
+        </div>
+      </div>
+
+    </div>
     <Footer />
   </div>
 </template>
@@ -97,16 +221,17 @@
 // @ is an alias to /src
 import TopMenu from '@/components/TopMenu2.vue'
 import Footer from '@/components/Footer2.vue'
-
+import CreateJob from '@/components/CreateJob.vue'
 export default {
   name: 'Home',
   components: {
-    TopMenu, Footer
+    TopMenu, Footer, CreateJob
   },
   data () {
     return {
       jobs: [],
       job: {},
+      job_id: '',
       searchtext: '',
       pagination: {
         pages: [],
@@ -121,20 +246,18 @@ export default {
     getJobs (page) {
       var req = {
         what: "myjobs",
-        useToken: true,
+        // useToken: true,
         params: {
           page: page,
         }
       };
-      // if (this.searchtext.length !== 0) req.params.q = this.searchtext;
+      if (this.searchtext.length !== 0) req.params.q = this.searchtext;
       this.$request
         .makeGetRequest(req)
         .then(response => {
           if (response.type == 'myjobs') {
             console.log(response)
             this.jobs = response.data.data;
-            this.activeIndex = this.jobs[0].id;
-            this.job = this.jobs[0];
             console.log(response.data.meta)
             let pagination = response.data.meta;
             this.pagination.current = pagination.current_page
@@ -148,6 +271,69 @@ export default {
           this.$swal.fire("Error", error, "error");
         });
     },
+    editJob (row) {
+      console.log(row)
+      this.job = {
+        title: row.title,
+        description: row.description,
+        location: row.location,
+        category: row.category,
+        benefits: row.benefits,
+        salary: row.salary,
+        type: row.type,
+        work_condition: row.work_condition
+      }
+      this.job_id = row.id;
+      document.querySelector("#editjob").style.display = "block"
+    },
+    handleEdit () {
+      var req = {
+        what: "editjob",
+        data: this.job,
+        id: this.job_id
+      };
+      // if (this.searchtext.length !== 0) req.params.q = this.searchtext;
+      this.$request
+        .editItem(req)
+        .then(response => {
+          if (response.type == 'editjob') {
+            console.log(response)
+            this.$swal.fire("Success", response.data.message, "success");
+            location.reload()
+          }
+        })
+        .catch(error => {
+          console.log(error)
+          this.$swal.fire("Error", error, "error");
+        });
+    },
+    handleDelete (id) {
+      var req = {
+        what: "deletejob",
+        // useToken: true,
+        id
+      };
+      // if (this.searchtext.length !== 0) req.params.q = this.searchtext;
+      this.$request
+        .deleteItem(req)
+        .then(response => {
+          if (response.type == 'deletejob') {
+            console.log(response)
+
+          }
+        })
+        .catch(error => {
+          console.log(error)
+          this.$swal.fire("Error", error.message, "error");
+        });
+    },
+    showModal () {
+      this.$refs.createjob.showModal()
+    },
+    closeModal () {
+      document.querySelector("#editjob").style.display = "none"
+    }
+
   }
 }
 </script> 
