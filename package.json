@@ -69,5 +69,8 @@
     ],
     "jest": {
         "preset": "@vue/cli-plugin-unit-jest"
+    },
+    "engines": {
+        "node": "16.13.1"
     }
 }
