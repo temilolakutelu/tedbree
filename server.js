@@ -5,3 +5,5 @@ app = express();
 app.use(serveStatic(path.join(__dirname, 'dist')));
 const port = process.env.PORT || 3000;
 app.listen(port);
+var distDir = __dirname + "/dist/";
+app.use(express.static(distDir));
