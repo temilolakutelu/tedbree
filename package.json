@@ -8,6 +8,7 @@
         "lint": "vue-cli-service lint",
         "test:unit": "vue-cli-service test:unit",
         "postinstall": "npm run build",
+        "heroku-postbuild": "npm run build --prod",
         "start": "node server.js"
 
     },
