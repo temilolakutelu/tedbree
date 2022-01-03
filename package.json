@@ -9,12 +9,11 @@
         "build": "vue-cli-service build",
         "lint": "vue-cli-service lint",
         "test:unit": "vue-cli-service test:unit",
-        "postinstall": "./node_modules/bower/bin/bower install"
+
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.15.4",
         "axios": "^0.24.0",
-        "bower": "^1.8.13",
         "core-js": "^3.6.5",
         "express": "^4.17.2",
         "jquery": "^3.6.0",
@@ -54,17 +53,15 @@
             "parser": "babel-eslint"
         },
         "rules": {},
-        "overrides": [
-            {
-                "files": [
-                    "**/__tests__/*.{j,t}s?(x)",
-                    "**/tests/unit/**/*.spec.{j,t}s?(x)"
-                ],
-                "env": {
-                    "jest": true
-                }
+        "overrides": [{
+            "files": [
+                "**/__tests__/*.{j,t}s?(x)",
+                "**/tests/unit/**/*.spec.{j,t}s?(x)"
+            ],
+            "env": {
+                "jest": true
             }
-        ]
+        }]
     },
     "browserslist": [
         "> 1%",
