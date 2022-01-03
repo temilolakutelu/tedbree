@@ -9,7 +9,7 @@
         "build": "vue-cli-service build",
         "lint": "vue-cli-service lint",
         "test:unit": "vue-cli-service test:unit",
-        "postinstall": "./node_modules/bower/bin/bower install && npm run build"
+        "postinstall": "./node_modules/bower/bin/bower install"
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.15.4",
