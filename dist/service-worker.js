@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.a40a2b103806e340a2bf6df12600d19d.js"
+  "/precache-manifest.94d375ed27d7edef3528f568a5f0d303.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "tedbree"});
