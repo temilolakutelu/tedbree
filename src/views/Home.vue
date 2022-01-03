@@ -166,7 +166,7 @@ export default {
         })
         .catch(error => {
           console.log(error)
-          this.$swal.fire("Error", error, "error");
+          this.$swal.fire("Error", error.message, "error");
         });
     },
     viewJob (row) {
