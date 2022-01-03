@@ -48,6 +48,7 @@
             <label for="email">Email</label>
             <input
               type="text"
+              required
               v-model="formData.email"
             >
           </div>
@@ -55,6 +56,7 @@
             <label for="password">Password</label>
             <input
               type="password"
+              required
               v-model="formData.password"
             >
           </div>
@@ -87,7 +89,7 @@ export default {
     handleLogin () {
       var req = {
         what: "login",
-        data: this.formData,
+        data: this.formData
       };
       this.$request
         .makePostRequest(req)

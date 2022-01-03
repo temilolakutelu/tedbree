@@ -4,14 +4,16 @@ import Home from '../views/Home.vue'
 import Jobs from '../views/Jobs.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
-import table from '../views/table.vue'
 
 Vue.use(VueRouter)
 
 const routes = [{
         path: '/',
         name: 'Home',
-        component: Home
+        component: Home,
+        meta: {
+            public: true, // Allow access to even if not logged in 
+        }
     },
     {
         path: '/jobs',
@@ -21,17 +23,20 @@ const routes = [{
     {
         path: '/login',
         name: 'Login',
-        component: Login
+        component: Login,
+        meta: {
+            public: true, // Allow access to even if not logged in
+            onlyWhenLoggedOut: true
+        }
     },
     {
         path: '/register',
         name: 'Register',
-        component: Register
-    },
-    {
-        path: '/table',
-        name: 'table',
-        component: table
+        component: Register,
+        meta: {
+            public: true, // Allow access to even if not logged in
+            onlyWhenLoggedOut: true
+        }
     },
 
 

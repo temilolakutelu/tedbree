@@ -48,19 +48,22 @@
             <label for="email">Company Name</label>
             <input
               type="text"
+              required
               v-model="formData.name"
             >
           </div>
           <div class="form-group">
             <label for="email">Email</label>
             <input
-              type="text"
+              type="email"
+              required
               v-model="formData.email"
             >
           </div>
           <div class="form-group">
             <label for="password">Password</label>
             <input
+              required
               type="password"
               v-model="formData.password"
             >
@@ -69,14 +72,18 @@
             <label for="password">Confirm Password</label>
             <input
               type="password"
+              required
               v-model="confirmpassword"
             >
+            <span class="text-red-500 text-xs">{{msg}}</span>
           </div>
           <p class="text">Already have an account? <a href="/login">Login</a></p>
           <div class="form-group">
             <button
+              id="register-btn"
               @click.prevent="handleRegister"
               class="btn"
+              :disabled="passwordconfirmed ? false : true"
             >Register</button>
           </div>
         </form>
@@ -92,9 +99,25 @@ export default {
   data () {
     return {
       confirmpassword: '',
+      passwordconfirmed: false,
+      msg: '',
       formData: {
         email: '',
-        password: ''
+        password: '',
+
+      }
+    }
+  },
+  watch: {
+    confirmpassword (val) {
+
+      if (val !== this.formData.password) {
+        this.passwordconfirmed = false;
+        this.msg = "Password and Confirm Password does not match"
+      }
+      else {
+        this.passwordconfirmed = true;
+        this.msg = ""
       }
     }
   },
@@ -112,18 +135,11 @@ export default {
             this.$swal.fire("Success", response.data.message, "success");
             this.$router.push('/login')
           }
-          // this.$store.dispatch('setLoggedIn', true)
-          // console.log(response.data)
-          // this.$store.dispatch('login', response.data.message[0])
-          //   .then(() => {
-          //     this.fetchCart();
-          //     this.$swal.fire("Success", `Hi ${response.data.message[0].firstname}, Welcome to Marketsquare`, "success");
-          //     // this.user = {};
-          //   })
+
         })
         .catch(error => {
           console.log(error)
-          this.$swal.fire("Error", error, "error");
+          this.$swal.fire("Error", error.message, "error");
         });
     }
   }
@@ -136,5 +152,12 @@ export default {
 }
 .text a {
   font-weight: bold;
+}
+#register-btn {
+  cursor: pointer;
+}
+#register-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
 }
 </style> 

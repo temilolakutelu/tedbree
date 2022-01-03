@@ -114,6 +114,7 @@
               <input
                 type="text"
                 v-model="job.title"
+                required
               >
             </div>
 
@@ -122,6 +123,7 @@
               <input
                 type="text"
                 v-model="job.location"
+                required
               >
             </div>
 
@@ -131,6 +133,7 @@
                 name=""
                 id=""
                 v-model="job.type"
+                required
               >
                 <option
                   selected
@@ -149,6 +152,7 @@
               <input
                 type="text"
                 v-model="job.salary"
+                required
               >
             </div>
 
@@ -197,6 +201,7 @@
             <div class="form-group">
               <label for="salary">Description</label>
               <textarea
+                required
                 v-model="job.description"
                 cols="30"
                 rows="10"
@@ -248,7 +253,7 @@ export default {
     getJobs (page) {
       var req = {
         what: "myjobs",
-        // useToken: true,
+        useToken: true,
         params: {
           page: page,
         }
@@ -270,7 +275,7 @@ export default {
         })
         .catch(error => {
           console.log(error)
-          this.$swal.fire("Error", error, "error");
+          this.$swal.fire("Error", error.message, "error");
         });
     },
     editJob (row) {
@@ -294,7 +299,6 @@ export default {
         data: this.job,
         id: this.job_id
       };
-      // if (this.searchtext.length !== 0) req.params.q = this.searchtext;
       this.$request
         .editItem(req)
         .then(response => {
@@ -306,7 +310,7 @@ export default {
         })
         .catch(error => {
           console.log(error)
-          this.$swal.fire("Error", error, "error");
+          this.$swal.fire("Error", error.message, "error");
         });
     },
     handleDelete (id) {
@@ -315,13 +319,13 @@ export default {
         // useToken: true,
         id
       };
-      // if (this.searchtext.length !== 0) req.params.q = this.searchtext;
       this.$request
         .deleteItem(req)
         .then(response => {
           if (response.type == 'deletejob') {
             console.log(response)
-
+            this.$swal.fire("Success", response.data.message, "success");
+            location.reload()
           }
         })
         .catch(error => {

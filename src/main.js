@@ -17,6 +17,30 @@ Vue.config.productionTip = false
 Vue.prototype.$request = Request;
 Vue.prototype.$swal = swal;
 
+
+
+router.beforeEach(async(to, from, next) => {
+    await store.restored
+    const isPublic = to.matched.some(record => record.meta.public);
+
+    const onlyWhenLoggedOut = to.matched.some(
+        record => record.meta.onlyWhenLoggedOut
+    );
+    const loggedIn = store.getters.isLoggedIn;
+
+
+    // Do not allow user to visit login page or register page if they are logged in
+    if (loggedIn && onlyWhenLoggedOut) {
+        if (isPublic) {
+            return next("/");
+        }
+        return next("/");
+    }
+
+
+    next();
+});
+
 new Vue({
     router,
     store,

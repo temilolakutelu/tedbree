@@ -1,12 +1,6 @@
 <template>
   <div>
 
-    <!--  modal toggle -->
-    <!-- <button
-      class="create-button"
-      @click="showModal"
-    >Post Job</button> -->
-
     <div
       id="createjob"
       class="modal"
@@ -30,6 +24,7 @@
               <label for="title">Job Title</label>
               <input
                 type="text"
+                required
                 v-model="job.title"
               >
             </div>
@@ -38,6 +33,7 @@
               <label for="location">Location</label>
               <input
                 type="text"
+                required
                 v-model="job.location"
               >
             </div>
@@ -46,6 +42,7 @@
               <label for="type">What type of employement is it?</label>
               <select
                 name=""
+                required
                 id=""
                 v-model="job.type"
               >
@@ -65,6 +62,7 @@
               <label for="salary">Salary range</label>
               <input
                 type="text"
+                required
                 v-model="job.salary"
               >
             </div>
@@ -72,6 +70,7 @@
             <div class="form-group">
               <label for="sector">What Sector is this job categorized under?</label>
               <select
+                required
                 name=""
                 id=""
                 v-model="job.category"
@@ -91,6 +90,7 @@
               <label for="sector"> Work Conditions</label>
               <select
                 name=""
+                required
                 id=""
                 v-model="job.work_condition"
               >
@@ -114,6 +114,7 @@
             <div class="form-group">
               <label for="salary">Description</label>
               <textarea
+                required
                 v-model="job.description"
                 cols="30"
                 rows="10"
@@ -194,7 +195,7 @@ export default {
         })
         .catch(error => {
           console.log(error)
-          vm.$swal.fire("Error", error, "error");
+          vm.$swal.fire("Error", error.message, "error");
         });
     },
     showModal () {

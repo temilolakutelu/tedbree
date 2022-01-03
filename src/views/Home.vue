@@ -1,7 +1,7 @@
 <template>
   <div id="home">
     <TopMenu />
-    <section class="content">
+    <section class="content pb-16">
       <div class="container-box">
         <!-- search component -->
         <form
@@ -30,13 +30,16 @@
         </form>
 
         <!-- main-content -->
-        <div class="flex py-20">
+        <div class="count pt-16">
+          <p class="text  ">Showing {{total}} results</p>
+        </div>
+        <div class="flex py-8">
           <div class="w-2/4  list">
             <div
               v-for="row in jobs"
               :class="{ 'active': activeIndex === row.id}"
               :key="row.id"
-              class="card mb-8"
+              class="card mb-5"
               @click="viewJob(row )"
             >
               <div class="card-head flex justify-between">
@@ -85,7 +88,7 @@
             </div>
           </div>
         </div>
-        <section class="pagination my-8">
+        <section class="pagination ">
           <div class="flex">
             <div
               class="box"
@@ -117,6 +120,7 @@ export default {
   },
   data () {
     return {
+      total: '',
       jobs: [],
       activeIndex: '',
       job: {},
@@ -152,12 +156,12 @@ export default {
             this.jobs = response.data.data;
             this.activeIndex = this.jobs[0].id;
             this.job = this.jobs[0];
-            console.log(response.data.meta)
             let pagination = response.data.meta;
             this.pagination.current = pagination.current_page
             this.pagination.from = pagination.from
             this.pagination.last == pagination.last_page
             this.pagination.pages = Array.from({ length: pagination.last_page }, (_, i) => i + 1)
+            this.total = pagination.total
           }
         })
         .catch(error => {

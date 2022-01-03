@@ -38,13 +38,14 @@ export default {
     logOut () {
       var req = {
         what: "logout",
-        useToken: true,
+        // useToken: true,
       };
       this.$request
         .makePostRequest(req)
         .then(response => {
           console.log(response)
           if (response.type == 'logout') {
+            this.$swal.fire("Success", response.data.message, "success");
             this.$store.dispatch('setLoggedIn', false)
             this.$router.push('/')
           }

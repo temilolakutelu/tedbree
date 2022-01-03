@@ -128,7 +128,7 @@ export default {
                     'Content-Type': 'multipart/form-data'
                 }
             }
-            if (request.useToken || request.useToken == undefined) {
+            if (request.useToken) {
                 var token = store.getters.token;
                 request.headers.Authorization = "Bearer " + token
             }
