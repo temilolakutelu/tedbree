@@ -11,7 +11,7 @@
       <div class=" ">
         <p class="footerp">Quick Links</p>
         <p class="footera"><a href="/">Home</a></p>
-        <p class="footera"><a href="/jobs_page">Jobs</a></p>
+        <p class="footera"><a href="/jobs">Jobs</a></p>
       </div>
 
       <div class=" ">

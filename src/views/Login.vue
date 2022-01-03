@@ -60,7 +60,7 @@
               v-model="formData.password"
             >
           </div>
-          <p class="text">You do not have an account? <a href="/register_page">Register</a></p>
+          <p class="text">You do not have an account? <a href="/register">Register</a></p>
           <div class="form-group">
             <button
               @click.prevent="handleLogin"
@@ -98,7 +98,7 @@ export default {
           if (response.type == 'login') {
             this.$store.dispatch('login', response.data.token)
               .then(() => {
-                this.$router.push('/jobs_page')
+                this.$router.push('/jobs')
               })
           }
 

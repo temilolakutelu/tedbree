@@ -77,7 +77,7 @@
             >
             <span class="text-red-500 text-xs">{{msg}}</span>
           </div>
-          <p class="text">Already have an account? <a href="/login_page">Login</a></p>
+          <p class="text">Already have an account? <a href="/login">Login</a></p>
           <div class="form-group">
             <button
               id="register-btn"
@@ -133,7 +133,7 @@ export default {
           console.log(response)
           if (response.type == 'register') {
             this.$swal.fire("Success", response.data.message, "success");
-            this.$router.push('/login_page')
+            this.$router.push('/login')
           }
 
         })

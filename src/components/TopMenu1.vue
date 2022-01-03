@@ -13,15 +13,15 @@
           <li
             v-if="$store.getters.isLoggedIn"
             class="nav-links "
-          ><a href="/jobs_page">My Jobs</a></li>
+          ><a href="/jobs">My Jobs</a></li>
           <li
             v-if="!$store.getters.isLoggedIn"
             class="nav-links"
-          ><a href="/login_page">Login</a> </li>
+          ><a href="/login">Login</a> </li>
           <li
             v-if="!$store.getters.isLoggedIn"
             class="nav-links"
-          ><a href="/register_page">Register</a></li>
+          ><a href="/register">Register</a></li>
           <li
             @click="logOut()"
             v-if="$store.getters.isLoggedIn"
