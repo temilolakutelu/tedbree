@@ -16,12 +16,12 @@ const routes = [{
         }
     },
     {
-        path: '/jobs',
+        path: '/jobs_page',
         name: 'Jobs',
         component: Jobs
     },
     {
-        path: '/login',
+        path: '/login_page',
         name: 'Login',
         component: Login,
         meta: {
@@ -30,7 +30,7 @@ const routes = [{
         }
     },
     {
-        path: '/register',
+        path: '/register_page',
         name: 'Register',
         component: Register,
         meta: {

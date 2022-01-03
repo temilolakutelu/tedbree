@@ -7,9 +7,8 @@
         "build": "vue-cli-service build",
         "lint": "vue-cli-service lint",
         "test:unit": "vue-cli-service test:unit",
-        "postinstall": "npm run build",
-        "start": "node server.js",
-        "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+        "postinstall": "if test \"$NODE_ENV\" = \"production\" ; then npm run build ; fi ",
+        "start": "node server.js"
 
     },
     "dependencies": {
